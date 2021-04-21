@@ -81,23 +81,21 @@ export const getStaticProps:GetStaticProps = async (ctx) => {
     const {slug} = ctx.params
     const { data } = await api.get(`/episodes/${slug}`)
   
-    const episodes = data.map(episode => {
-      return{
-        id: episode.id,
-        title: episode.title,
-        thumbnail: episode.thumbnail,
-        members: episode.members,
-        publishedAt: format(parseISO(episode.published_at), 'd MMM yy', { locale: ptBR }),
-        duration: Number(episode.file.duration),
-        durationString: convertDurationToTimeString(Number(episode.file.duration)),
-        description: episode.description,
-        url: episode.file.url,
+    const episode = {
+        id: data.id,
+        title: data.title,
+        thumbnail: data.thumbnail,
+        members: data.members,
+        publishedAt: format(parseISO(data.published_at), 'd MMM yy', { locale: ptBR }),
+        duration: Number(data.file.duration),
+        durationString: convertDurationToTimeString(Number(data.file.duration)),
+        description: data.description,
+        url: data.file.url,
       }
-    })
  
     return{
       props:{
-        episodes,
+        episode,
       },
       revalidate: 60 * 60 * 24, //24 horas
     }
