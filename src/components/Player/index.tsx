@@ -19,6 +19,7 @@ export default function Player(){
             hasNext,
             hasPrevious,
             setPlayingState,
+            togglePlay,
             toggleLoop,
             toggleShuffle,
             playNext,
@@ -134,6 +135,8 @@ export default function Player(){
                     <button 
                         type='button' 
                         className={styles.playButton}
+                        disabled={!episode}
+                        onClick={togglePlay}
                     >
                         { isPlaying 
                             ? <img src="/pause.svg" alt="Pause"/>
